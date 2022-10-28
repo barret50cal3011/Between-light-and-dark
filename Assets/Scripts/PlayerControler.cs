@@ -5,12 +5,17 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
+
 public class PlayerControler : MonoBehaviour
 {
 
-    //variables
+    //Serialized variables
     [Header("Speed of the player")]
     [SerializeField] private float speed;
+
+    //None serialized variales 
+    private bool special1_is_active;
+    private bool special2_is_active;
 
     //components
     private Rigidbody2D rb;
@@ -20,19 +25,39 @@ public class PlayerControler : MonoBehaviour
     private InputAction move_action;
     private InputAction aim_action; 
 
-    void Awake(){
+    private InputAction light_action;
+    private InputAction dark_action;
+
+    private InputAction special1_action;
+    private InputAction special2_action;
+
+    private void Awake(){
+        special1_is_active = false;
+        special2_is_active = false;
+
         rb = GetComponent<Rigidbody2D>();
         player_input = GetComponent<PlayerInput>();
 
         move_action = player_input.actions["Move"];
         aim_action = player_input.actions["Aim"];
+
+        light_action = player_input.actions["Light"];
+        dark_action = player_input.actions["Dark"];
+
+        special1_action = player_input.actions["Special1"];
+        special2_action = player_input.actions["Special2"];
     }
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    private void OnEnable() {
         move_action.performed += move;
         move_action.canceled += stop_movement;
-    } 
+
+        light_action.performed += light;
+        dark_action.performed += dark;
+
+        special1_action.performed += special1;
+        special2_action.performed += special2;
+    }
 
     // Update is called once per frame
     void Update()
@@ -43,6 +68,12 @@ public class PlayerControler : MonoBehaviour
     private void OnDisable() {
         move_action.performed -= move;
         move_action.canceled -= stop_movement;
+
+        light_action.performed -= light;
+        dark_action.performed -= dark;
+
+        special1_action.performed -= special1;
+        special2_action.performed -= special2;
     }
 
     //moves the player
@@ -53,6 +84,40 @@ public class PlayerControler : MonoBehaviour
     //stops the movement of the player
     private void stop_movement(InputAction.CallbackContext context){
         rb.velocity = new Vector2(0,0);
+    }
+
+    private void light(InputAction.CallbackContext context){
+        if(special1_is_active){
+            Debug.Log("light special1");
+            special1_is_active = false;
+        }else if(special2_is_active){
+            Debug.Log("light special2");
+            special2_is_active = false;
+        }else{
+            Debug.Log("light normal");
+        }
+    }
+
+    private void dark(InputAction.CallbackContext context){
+        if(special1_is_active){
+            Debug.Log("dark special1");
+            special1_is_active = false;
+        }else if(special2_is_active){
+            Debug.Log("dakr special2");
+            special2_is_active = false;
+        }else{
+            Debug.Log("dark normal");
+        }
+    }
+
+    private void special1(InputAction.CallbackContext context){
+        special1_is_active = !special1_is_active;
+        special2_is_active = false;
+    }
+
+    private void special2(InputAction.CallbackContext context){
+        special2_is_active = !special2_is_active;
+        special1_is_active = false;
     }
 
     //Keeps the player aiming at the mouse position
@@ -72,4 +137,6 @@ public class PlayerControler : MonoBehaviour
     private float calculate_angle(Vector2 v1, Vector2 v2){
         return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
     }
+
+   
 }
