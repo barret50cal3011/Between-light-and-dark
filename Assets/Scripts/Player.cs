@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private int hp;
 
-    
+    private void Awake() {
+        hp = 100;
+    }
     // Start is called before the first frame update
     void Start()
     {
