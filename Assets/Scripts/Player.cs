@@ -49,4 +49,16 @@ public class Player : MonoBehaviour
         dark_mana = i_dark_mana;
         dark_mana_slider.value = dark_mana;
     }
+
+    public int get_hp(){
+        return hp;
+    }
+
+    public int get_light_mana(){
+        return light_mana;
+    }
+
+    public int get_dark_mana(){
+        return dark_mana;
+    }
 }

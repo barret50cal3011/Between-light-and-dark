@@ -13,6 +13,9 @@ public class PlayerControler : MonoBehaviour
     [Header("Speed of the player")]
     [SerializeField] private float speed;
 
+    [Header("light basic attack")]
+    [SerializeField]private GameObject light_basic;
+
     //None serialized variales 
     private bool special1_is_active;
     private bool special2_is_active;
@@ -95,6 +98,7 @@ public class PlayerControler : MonoBehaviour
             special2_is_active = false;
         }else{
             Debug.Log("light normal");
+            Instantiate(light_basic, transform.position, transform.rotation);
         }
     }
 

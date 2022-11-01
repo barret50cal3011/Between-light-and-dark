@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  light_basic: {fileID: 6836038808009432556, guid: 87ec1e540de210d498011af233c5250c, type: 3}
 --- !u!50 &2485159926486263839
 Rigidbody2D:
   serializedVersion: 4
