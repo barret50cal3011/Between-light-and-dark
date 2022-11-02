@@ -6,10 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Proyectile : MonoBehaviour
 {
-
     //info
     private int damage;
     private int speed;
+    private float destruction_distance;
 
     //Components
     private Rigidbody2D rb;
@@ -20,6 +20,7 @@ public class Proyectile : MonoBehaviour
     private void Awake() {
         damage = 10;
         speed = 15;
+        destruction_distance = 18;
 
         rb = GetComponent<Rigidbody2D>();
     }
@@ -33,7 +34,9 @@ public class Proyectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if((transform.position - player.transform.position).sqrMagnitude  > destruction_distance * destruction_distance){
+            Destroy(gameObject);
+        }
     }
 
     public int get_damage(){

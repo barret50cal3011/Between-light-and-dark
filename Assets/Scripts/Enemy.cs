@@ -55,11 +55,10 @@ public class Enemy : MonoBehaviour
         hp -= i_damage;
         if(hp < 1){
             spawner.remove_enemy(gameObject);
-            Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.CompareTag("Light Proyectile")){
             hit(other.transform.GetComponent<Proyectile>().get_damage());
             Destroy(other.gameObject);

@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
     //Serialized variables
     [Header("Enemies that can be spawn")]
     [SerializeField]private List<GameObject> enemies;
+    [Header("Score text")]
+    [SerializeField]private Text score_text;
 
     //None serialized variables
     private GameObject player;
     private List<GameObject> enemies_in_map;
+    private int score;
 
     private void Awake() {
         enemies_in_map = new List<GameObject>();
+        score = 0;
     }
     // Start is called before the first frame update
     void Start()
@@ -41,5 +46,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void remove_enemy(GameObject i_enemy){
         enemies_in_map.Remove(i_enemy);
+        Destroy(i_enemy);
+        score++;
+        score_text.text = "Score: " + score;
     }
 }

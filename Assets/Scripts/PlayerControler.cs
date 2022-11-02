@@ -14,8 +14,13 @@ public class PlayerControler : MonoBehaviour
     [Header("Speed of the player")]
     [SerializeField] private float speed;
 
-    [Header("light basic attack")]
+    [Header("attaks")]
     [SerializeField]private GameObject light_basic;
+    [SerializeField]private GameObject dark_basic;
+    [SerializeField]private GameObject light_special1;
+    [SerializeField]private GameObject dark_special1;
+    [SerializeField]private GameObject light_special2;
+    [SerializeField]private GameObject dark_special2;
 
     //None serialized variales 
     private bool special1_is_active;

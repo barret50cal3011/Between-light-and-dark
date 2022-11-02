@@ -282,6 +282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   light_basic: {fileID: 6836038808009432556, guid: 87ec1e540de210d498011af233c5250c, type: 3}
+  dark_basic: {fileID: 1049309795498619039, guid: eb5771c9d4938794eb8c92941dff1add, type: 3}
+  light_special1: {fileID: 6896990849629897821, guid: 947eb3fcb52d3704fb12954e402dea2d, type: 3}
+  dark_special1: {fileID: 7615841544943474292, guid: 1db7f9f4caf07634f853574240f7ca78, type: 3}
+  light_special2: {fileID: 8136587380000856510, guid: 662fcbac55afee24bb3cc32b577d2e5f, type: 3}
+  dark_special2: {fileID: 8454947972429553335, guid: ca1136eae47df8e4bbf98ee341d5d42f, type: 3}
 --- !u!50 &2485159926486263839
 Rigidbody2D:
   serializedVersion: 4
