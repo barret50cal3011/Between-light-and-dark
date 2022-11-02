@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
         hp = 100;
         rb = GetComponent<Rigidbody2D>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,10 +60,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-
-        Debug.Log(other.transform.tag);
         if(other.transform.CompareTag("Light Proyectile")){
-            Debug.Log("Hit :p");
             hit(other.transform.GetComponent<Proyectile>().get_damage());
             Destroy(other.gameObject);
         }
