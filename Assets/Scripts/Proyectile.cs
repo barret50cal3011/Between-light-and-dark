@@ -9,12 +9,19 @@ public class Proyectile : MonoBehaviour
 
     //info
     private int damage;
+    private int speed;
+
+    //Components
+    private Rigidbody2D rb;
     
     //Player
     private GameObject player;
 
     private void Awake() {
         damage = 10;
+        speed = 15;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -31,5 +38,10 @@ public class Proyectile : MonoBehaviour
 
     public int get_damage(){
         return damage;
+    }
+
+    public void set_velocity(Vector2 i_vel){
+        Vector2 unit_vel = (i_vel/i_vel.magnitude);
+        rb.velocity = unit_vel*speed;
     }
 }

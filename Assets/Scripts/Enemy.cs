@@ -18,7 +18,11 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rb;
 
+    //Spawner
+    private EnemySpawner spawner;
+
     private void Awake() {
+        hp = 100;
         rb = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
@@ -44,5 +48,27 @@ public class Enemy : MonoBehaviour
 
     private float calculate_angle(Vector2 v1, Vector2 v2){
         return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
+    }
+
+    private void hit(int i_damage){
+        hp -= i_damage;
+        if(hp < 1){
+            spawner.remove_enemy(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+
+        Debug.Log(other.transform.tag);
+        if(other.transform.CompareTag("Light Proyectile")){
+            Debug.Log("Hit :p");
+            hit(other.transform.GetComponent<Proyectile>().get_damage());
+            Destroy(other.gameObject);
+        }
+    }
+
+    public void set_spawner(EnemySpawner i_spawner){
+        spawner = i_spawner;
     }
 }

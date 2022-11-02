@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Collider2D))]
 
 public class PlayerControler : MonoBehaviour
 {
@@ -98,7 +99,13 @@ public class PlayerControler : MonoBehaviour
             special2_is_active = false;
         }else{
             Debug.Log("light normal");
-            Instantiate(light_basic, transform.position, transform.rotation);
+            GameObject proj = Instantiate(light_basic, transform.position, transform.rotation);
+
+            Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+            Vector2 player_point = transform.position;
+            Vector2 velocity = mouse_point - player_point;
+
+            proj.GetComponent<Proyectile>().set_velocity(velocity);
         }
     }
 
@@ -126,8 +133,8 @@ public class PlayerControler : MonoBehaviour
 
     //Keeps the player aiming at the mouse position
     private void aim(Vector2 mouse_screen_pos){
-        Vector2 mouse_pos = Camera.main.ScreenToViewportPoint(mouse_screen_pos);
-        Vector2 player_pos = Camera.main.WorldToViewportPoint(transform.position);
+        Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(mouse_screen_pos);
+        Vector2 player_pos = transform.position;
 
         float angle = calculate_angle(mouse_pos, player_pos);
 
@@ -142,5 +149,4 @@ public class PlayerControler : MonoBehaviour
         return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
     }
 
-   
 }

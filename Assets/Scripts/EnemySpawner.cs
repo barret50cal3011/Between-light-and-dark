@@ -33,6 +33,13 @@ public class EnemySpawner : MonoBehaviour
         float angle = Random.Range(0, 359) * Mathf.Deg2Rad;
         Vector3 position = (new Vector3(Mathf.Cos(angle),Mathf.Sin(angle), 0)) * 10;
         position += player.transform.position;
-        enemies_in_map.Add(Instantiate(enemy, position, Quaternion.identity));
+
+        GameObject new_enemy = Instantiate(enemy, position, Quaternion.identity);
+        new_enemy.GetComponent<Enemy>().set_spawner(this);
+        enemies_in_map.Add(new_enemy);
+    }
+
+    public void remove_enemy(GameObject i_enemy){
+        enemies_in_map.Remove(i_enemy);
     }
 }
