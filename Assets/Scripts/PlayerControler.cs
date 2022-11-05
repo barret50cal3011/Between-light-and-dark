@@ -29,6 +29,7 @@ public class PlayerControler : MonoBehaviour
     //components
     private Rigidbody2D rb;
     private PlayerInput player_input;
+    private Player player;
 
     //Actions
     private InputAction move_action;
@@ -46,6 +47,7 @@ public class PlayerControler : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         player_input = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
 
         move_action = player_input.actions["Move"];
         aim_action = player_input.actions["Aim"];
@@ -103,14 +105,18 @@ public class PlayerControler : MonoBehaviour
             Debug.Log("light special2");
             special2_is_active = false;
         }else{
-            Debug.Log("light normal");
-            GameObject proj = Instantiate(light_basic, transform.position, transform.rotation);
+            if(light_basic.GetComponent<Ability>().get_mana_cost() <= player.get_light_mana()){
+                GameObject proj = Instantiate(light_basic, transform.position, transform.rotation);
 
-            Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-            Vector2 player_point = transform.position;
-            Vector2 velocity = mouse_point - player_point;
+                Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+                Vector2 player_point = transform.position;
+                Vector2 velocity = mouse_point - player_point;
 
-            proj.GetComponent<Proyectile>().set_velocity(velocity);
+                proj.GetComponent<Proyectile>().set_velocity(velocity);
+
+                Ability ability = proj.GetComponent<Ability>();
+                player.set_light_mana(player.get_light_mana() - ability.get_mana_cost());
+            }
         }
     }
 
@@ -122,15 +128,18 @@ public class PlayerControler : MonoBehaviour
             Debug.Log("dakr special2");
             special2_is_active = false;
         }else{
-            Debug.Log("dark normal");
+            if(dark_basic.GetComponent<Ability>().get_mana_cost() <= player.get_dark_mana()){
+                GameObject proj = Instantiate(dark_basic, transform.position, transform.rotation);
 
-            GameObject proj = Instantiate(dark_basic, transform.position, transform.rotation);
+                Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+                Vector2 player_point = transform.position;
+                Vector2 velocity = mouse_point - player_point;
 
-            Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-            Vector2 player_point = transform.position;
-            Vector2 velocity = mouse_point - player_point;
+                proj.GetComponent<Proyectile>().set_velocity(velocity);
 
-            proj.GetComponent<Proyectile>().set_velocity(velocity);
+                Ability ability = proj.GetComponent<Ability>();
+                player.set_dark_mana(player.get_dark_mana() - ability.get_mana_cost());
+            }
         }
     }
 

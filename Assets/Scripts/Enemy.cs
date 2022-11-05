@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.CompareTag("Light Proyectile") || other.transform.CompareTag("Dark Proyectile")){
-            hit(other.transform.GetComponent<Proyectile>().get_damage());
+            hit(other.transform.GetComponent<Ability>().get_damage());
             Destroy(other.gameObject);
         }
     }

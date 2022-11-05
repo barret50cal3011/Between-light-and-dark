@@ -7,7 +7,6 @@ using UnityEngine;
 public class Proyectile : MonoBehaviour
 {
     //info
-    private int damage;
     private int speed;
     private float destruction_distance;
 
@@ -18,7 +17,6 @@ public class Proyectile : MonoBehaviour
     private GameObject player;
 
     private void Awake() {
-        damage = 10;
         speed = 15;
         destruction_distance = 18;
 
@@ -38,11 +36,7 @@ public class Proyectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public int get_damage(){
-        return damage;
-    }
-
+    
     public void set_velocity(Vector2 i_vel){
         Vector2 unit_vel = (i_vel/i_vel.magnitude);
         rb.velocity = unit_vel*speed;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Light Proyectile
+  - Dark Proyectile
   layers:
   - Default
   - TransparentFX
