@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     //None serialized variables
     private int hp;
+    private int damage;
 
     //Components
     private GameObject player;
@@ -23,6 +24,8 @@ public class Enemy : MonoBehaviour
 
     private void Awake() {
         hp = 100;
+        damage = 5;
+
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -59,7 +62,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.transform.CompareTag("Light Proyectile")){
+        if(other.transform.CompareTag("Light Proyectile") || other.transform.CompareTag("Dark Proyectile")){
             hit(other.transform.GetComponent<Proyectile>().get_damage());
             Destroy(other.gameObject);
         }
@@ -67,5 +70,9 @@ public class Enemy : MonoBehaviour
 
     public void set_spawner(EnemySpawner i_spawner){
         spawner = i_spawner;
+    }
+
+    public int get_damage(){
+        return damage;
     }
 }

@@ -123,6 +123,14 @@ public class PlayerControler : MonoBehaviour
             special2_is_active = false;
         }else{
             Debug.Log("dark normal");
+
+            GameObject proj = Instantiate(dark_basic, transform.position, transform.rotation);
+
+            Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+            Vector2 player_point = transform.position;
+            Vector2 velocity = mouse_point - player_point;
+
+            proj.GetComponent<Proyectile>().set_velocity(velocity);
         }
     }
 

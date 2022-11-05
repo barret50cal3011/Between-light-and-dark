@@ -61,4 +61,12 @@ public class Player : MonoBehaviour
     public int get_dark_mana(){
         return dark_mana;
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.transform.CompareTag("Enemy")){
+            Debug.Log("I was hit :(");
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            update_hp(hp - enemy.get_damage());
+        }
+    }
 }
