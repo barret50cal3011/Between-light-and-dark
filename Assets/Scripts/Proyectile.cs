@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Ability))]
 public class Proyectile : MonoBehaviour
 {
     //info
@@ -36,7 +37,7 @@ public class Proyectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     public void set_velocity(Vector2 i_vel){
         Vector2 unit_vel = (i_vel/i_vel.magnitude);
         rb.velocity = unit_vel*speed;

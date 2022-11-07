@@ -68,6 +68,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D other) {
+        if(other.transform.CompareTag("Light Burst")){
+            hit(other.transform.GetComponent<Ability>().get_damage());
+        }
+    }
+
     public void set_spawner(EnemySpawner i_spawner){
         spawner = i_spawner;
     }

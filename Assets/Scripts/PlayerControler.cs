@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Player))]
 
 public class PlayerControler : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerControler : MonoBehaviour
     [Header("Speed of the player")]
     [SerializeField] private float speed;
 
-    [Header("attaks")]
+    [Header("Abilities")]
     [SerializeField]private GameObject light_basic;
     [SerializeField]private GameObject dark_basic;
     [SerializeField]private GameObject light_special1;
@@ -99,13 +100,21 @@ public class PlayerControler : MonoBehaviour
 
     private void light(InputAction.CallbackContext context){
         if(special1_is_active){
-            Debug.Log("light special1");
-            special1_is_active = false;
+            float mana_cost = light_special1.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_light_mana()){
+                GameObject lb = Instantiate(light_special1, transform.position, transform.rotation);
+
+                Ability ability = lb.GetComponent<Ability>();
+                player.set_light_mana(player.get_light_mana() - mana_cost);
+
+                special1_is_active = false;
+            }
         }else if(special2_is_active){
             Debug.Log("light special2");
             special2_is_active = false;
         }else{
-            if(light_basic.GetComponent<Ability>().get_mana_cost() <= player.get_light_mana()){
+            float mana_cost = light_basic.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_light_mana()){
                 GameObject proj = Instantiate(light_basic, transform.position, transform.rotation);
 
                 Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
@@ -114,8 +123,7 @@ public class PlayerControler : MonoBehaviour
 
                 proj.GetComponent<Proyectile>().set_velocity(velocity);
 
-                Ability ability = proj.GetComponent<Ability>();
-                player.set_light_mana(player.get_light_mana() - ability.get_mana_cost());
+                player.set_light_mana(player.get_light_mana() - mana_cost);
             }
         }
     }
