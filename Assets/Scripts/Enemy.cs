@@ -62,6 +62,8 @@ public class Enemy : MonoBehaviour
         if(other.transform.CompareTag("Light Proyectile") || other.transform.CompareTag("Dark Proyectile")){
             hit(other.transform.GetComponent<Ability>().get_damage());
             Destroy(other.gameObject);
+        }else if(other.transform.CompareTag("Shadow Dash")){
+            hit(other.transform.GetComponent<Ability>().get_damage());
         }
     }
 

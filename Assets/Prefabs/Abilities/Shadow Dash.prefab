@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 287065539115317236}
   - component: {fileID: 3195514302371592366}
+  - component: {fileID: 3029109029430756553}
+  - component: {fileID: 7999196195587518620}
   m_Layer: 3
   m_Name: Shadow Dash
-  m_TagString: Untagged
+  m_TagString: Shadow Dash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,9 +43,37 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &3029109029430756553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615841544943474292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451060ed0651c9247a8d51d19e07b8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  mana_cost: 10
+--- !u!114 &7999196195587518620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615841544943474292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408caad8f9abaa4ea28c2c25b7439dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  dash_time: 1

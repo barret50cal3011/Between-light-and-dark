@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Light Proyectile
   - Dark Proyectile
+  - Light Burst
+  - Black Hole
+  - Shadow Dash
   layers:
   - Default
   - TransparentFX

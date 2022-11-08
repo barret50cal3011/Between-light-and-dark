@@ -42,9 +42,12 @@ public class PlayerControler : MonoBehaviour
     private InputAction special1_action;
     private InputAction special2_action;
 
+    private bool can_move;
+
     private void Awake(){
         special1_is_active = false;
         special2_is_active = false;
+        can_move = true;
 
         rb = GetComponent<Rigidbody2D>();
         player_input = GetComponent<PlayerInput>();
@@ -90,7 +93,9 @@ public class PlayerControler : MonoBehaviour
 
     //moves the player
     private void move(InputAction.CallbackContext context){
-        rb.velocity = context.ReadValue<Vector2>() * speed;
+        if(can_move){
+            rb.velocity = context.ReadValue<Vector2>() * speed;
+        }
     }
 
     //stops the movement of the player
@@ -140,6 +145,14 @@ public class PlayerControler : MonoBehaviour
             }
             special1_is_active = false;
         }else if(special2_is_active){
+            float mana_cost = dark_special2.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_dark_mana()){
+                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+                Vector2 direction = mouse_pos - (Vector2)transform.position;
+
+                Instantiate(dark_special2, transform).GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
+                player.set_dark_mana(player.get_dark_mana() - mana_cost);
+            }
             Debug.Log("dakr special2");
             special2_is_active = false;
         }else{
@@ -186,4 +199,11 @@ public class PlayerControler : MonoBehaviour
         return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
     }
 
+    public void dash_activated(){
+        can_move = false;
+    }
+
+    public void dash_ended(){
+        can_move = true;
+    }
 }
