@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemySpawner : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
-    //Serialized variables
-    [Header("Enemies that can be spawn")]
-    [SerializeField]private List<GameObject> enemies;
-    [Header("Score text")]
-    [SerializeField]private Text score_text;
+    //Shared instance
+    public static MapManager map;
 
-    //None serialized variables
+    [SerializeField] private List<GameObject> enemy_prefabs;
+    [SerializeField] private Text text_score;
+    
     private GameObject player;
     private List<GameObject> enemies_in_map;
     private int score;
 
     private void Awake() {
+        if(map == null){
+            map = this;
+        }
+
         enemies_in_map = new List<GameObject>();
+
         score = 0;
     }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +35,8 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if(enemies_in_map.Count < 10){
-            create_enemy(enemies[0]);
+            Debug.Log("In the if");
+            create_enemy(enemy_prefabs[0]);
         }
     }
 
@@ -40,7 +46,6 @@ public class EnemySpawner : MonoBehaviour
         position += player.transform.position;
 
         GameObject new_enemy = Instantiate(enemy, position, Quaternion.identity);
-        new_enemy.GetComponent<Enemy>().set_spawner(this);
         enemies_in_map.Add(new_enemy);
     }
 
@@ -48,6 +53,6 @@ public class EnemySpawner : MonoBehaviour
         enemies_in_map.Remove(i_enemy);
         Destroy(i_enemy);
         score++;
-        score_text.text = "Score: " + score;
+        text_score.text = "Score: " + score;
     }
 }

@@ -19,9 +19,6 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rb;
 
-    //Spawner
-    private EnemySpawner spawner;
-
     private void Awake() {
         hp = 100;
         damage = 5;
@@ -57,7 +54,7 @@ public class Enemy : MonoBehaviour
     private void hit(int i_damage){
         hp -= i_damage;
         if(hp < 1){
-            spawner.remove_enemy(gameObject);
+            MapManager.map.remove_enemy(gameObject);
         }
     }
 
@@ -79,10 +76,6 @@ public class Enemy : MonoBehaviour
         if(other.transform.CompareTag("Light Burst")){
             hit(other.transform.GetComponent<Ability>().get_damage());
         }
-    }
-
-    public void set_spawner(EnemySpawner i_spawner){
-        spawner = i_spawner;
     }
 
     public int get_damage(){
