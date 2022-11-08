@@ -115,7 +115,11 @@ public class PlayerControler : MonoBehaviour
                 special1_is_active = false;
             }
         }else if(special2_is_active){
-            Debug.Log("light special2");
+            float mana_cost = light_special2.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_light_mana()){
+                Instantiate(light_special2, transform);
+                Debug.Log("Instantiated");
+            }
             special2_is_active = false;
         }else{
             float mana_cost = light_basic.GetComponent<Ability>().get_mana_cost();
@@ -153,7 +157,6 @@ public class PlayerControler : MonoBehaviour
                 Instantiate(dark_special2, transform).GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
                 player.set_dark_mana(player.get_dark_mana() - mana_cost);
             }
-            Debug.Log("dakr special2");
             special2_is_active = false;
         }else{
             float mana_cost = dark_basic.GetComponent<Ability>().get_mana_cost();
@@ -205,5 +208,15 @@ public class PlayerControler : MonoBehaviour
 
     public void dash_ended(){
         can_move = true;
+    }
+
+    public Quaternion get_aim_direction(){
+        Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+        Vector2 player_pos = transform.position;
+
+        float angle = calculate_angle(mouse_pos, player_pos);
+
+        Quaternion direction = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        return direction;
     }
 }

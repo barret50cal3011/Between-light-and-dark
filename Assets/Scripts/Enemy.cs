@@ -71,6 +71,8 @@ public class Enemy : MonoBehaviour
         if(other.transform.CompareTag("Black Hole")){
             transform.position = other.transform.position;
             hit(other.transform.GetComponent<Ability>().get_damage());
+        }else if(other.transform.CompareTag("Light Beam")){
+            hit(other.transform.GetComponent<Ability>().get_damage());
         }
     }
 
