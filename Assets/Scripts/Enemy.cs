@@ -68,6 +68,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D other) {
+        if(other.transform.CompareTag("Black Hole")){
+            transform.position = other.transform.position;
+            hit(other.transform.GetComponent<Ability>().get_damage());
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D other) {
         if(other.transform.CompareTag("Light Burst")){
             hit(other.transform.GetComponent<Ability>().get_damage());

@@ -130,13 +130,21 @@ public class PlayerControler : MonoBehaviour
 
     private void dark(InputAction.CallbackContext context){
         if(special1_is_active){
-            Debug.Log("dark special1");
+            float mana_cost = dark_special1.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_dark_mana()){
+                Vector2 world_pos = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
+
+                Instantiate(dark_special1, world_pos, transform.rotation);
+
+                player.set_dark_mana(player.get_dark_mana() - mana_cost);
+            }
             special1_is_active = false;
         }else if(special2_is_active){
             Debug.Log("dakr special2");
             special2_is_active = false;
         }else{
-            if(dark_basic.GetComponent<Ability>().get_mana_cost() <= player.get_dark_mana()){
+            float mana_cost = dark_basic.GetComponent<Ability>().get_mana_cost();
+            if(mana_cost <= player.get_dark_mana()){
                 GameObject proj = Instantiate(dark_basic, transform.position, transform.rotation);
 
                 Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
@@ -145,8 +153,7 @@ public class PlayerControler : MonoBehaviour
 
                 proj.GetComponent<Proyectile>().set_velocity(velocity);
 
-                Ability ability = proj.GetComponent<Ability>();
-                player.set_dark_mana(player.get_dark_mana() - ability.get_mana_cost());
+                player.set_dark_mana(player.get_dark_mana() - mana_cost);
             }
         }
     }
