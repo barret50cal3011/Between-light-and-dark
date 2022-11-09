@@ -17,28 +17,30 @@ public class Ability : MonoBehaviour
 
     //Ability instantiation
 
-    //To add an ability, add the ability tag to the colection of ifs and create 
-    //a method that instantiates the new ability
+    //To add an ability, add a case with the ability tag and create 
+    //a method that instantiates the new ability.
 
     //This instantiates all the abilities that the player casts
     public static void instantiate_ability(Transform player, GameObject prefab){
-        if(prefab.CompareTag("Light Proyectile")){
+        switch(prefab.tag){
+        case "Light Proyectile":
             instantiate_light_projectile(player, prefab);
-        }
-        else if(prefab.CompareTag("Dark Proyectile")){
+            break;
+        case "Dark Proyectile":
             instantiate_dark_projectile(player, prefab);
-        }
-        else if(prefab.CompareTag("Black Hole")){
+            break;
+        case "Black Hole":
             instantiate_black_hole(player, prefab);
-        }
-        else if(prefab.CompareTag("Shadow Dash")){
+            break;
+        case "Shadow Dash":
             instantiate_shadow_dash(player, prefab);
-        }
-        else if(prefab.CompareTag("Light Burst")){
+            break;
+        case "Light Burst":
             instantiate_light_burst(player, prefab);
-        }
-        else if(prefab.CompareTag("Light Beam")){
+            break;
+        case "Light Beam":
             instantiate_light_beam(player, prefab);
+            break;
         }
     }
 
