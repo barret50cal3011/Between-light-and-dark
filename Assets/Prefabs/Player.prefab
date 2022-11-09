@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8952a3a788d71694fb7863d929f88061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mana_generation: 2
+  mana_generation: 10
 --- !u!114 &2485159926486264032
 MonoBehaviour:
   m_ObjectHideFlags: 0

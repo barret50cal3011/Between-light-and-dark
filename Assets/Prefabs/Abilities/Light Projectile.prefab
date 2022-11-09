@@ -197,6 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e915d288c72834499fce444d7bc86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 5
+  mana_cost: 1
 --- !u!114 &6571862355999020942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,5 +211,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451060ed0651c9247a8d51d19e07b8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   mana_cost: 1

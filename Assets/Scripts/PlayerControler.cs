@@ -107,31 +107,21 @@ public class PlayerControler : MonoBehaviour
         if(special1_is_active){
             float mana_cost = light_special1.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_light_mana()){
-                GameObject lb = Instantiate(light_special1, transform.position, transform.rotation);
-
-                Ability ability = lb.GetComponent<Ability>();
+                Ability.instantiate_ability(transform, light_special1);
                 player.set_light_mana(player.get_light_mana() - mana_cost);
-
-                special1_is_active = false;
             }
+            special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = light_special2.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_light_mana()){
-                Instantiate(light_special2, transform);
-                Debug.Log("Instantiated");
+                Ability.instantiate_ability(transform, light_special2);
+                player.set_light_mana(player.get_light_mana() - mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = light_basic.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_light_mana()){
-                GameObject proj = Instantiate(light_basic, transform.position, transform.rotation);
-
-                Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-                Vector2 player_point = transform.position;
-                Vector2 velocity = mouse_point - player_point;
-
-                proj.GetComponent<Proyectile>().set_velocity(velocity);
-
+                Ability.instantiate_ability(transform, light_basic);
                 player.set_light_mana(player.get_light_mana() - mana_cost);
             }
         }
@@ -141,34 +131,21 @@ public class PlayerControler : MonoBehaviour
         if(special1_is_active){
             float mana_cost = dark_special1.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_dark_mana()){
-                Vector2 world_pos = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-
-                Instantiate(dark_special1, world_pos, transform.rotation);
-
+                Ability.instantiate_ability(transform, dark_special1);
                 player.set_dark_mana(player.get_dark_mana() - mana_cost);
             }
             special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = dark_special2.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_dark_mana()){
-                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-                Vector2 direction = mouse_pos - (Vector2)transform.position;
-
-                Instantiate(dark_special2, transform).GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
+                Ability.instantiate_ability(transform, dark_special2);
                 player.set_dark_mana(player.get_dark_mana() - mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = dark_basic.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_dark_mana()){
-                GameObject proj = Instantiate(dark_basic, transform.position, transform.rotation);
-
-                Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim_action.ReadValue<Vector2>());
-                Vector2 player_point = transform.position;
-                Vector2 velocity = mouse_point - player_point;
-
-                proj.GetComponent<Proyectile>().set_velocity(velocity);
-
+                Ability.instantiate_ability(transform, dark_basic);
                 player.set_dark_mana(player.get_dark_mana() - mana_cost);
             }
         }
@@ -218,5 +195,9 @@ public class PlayerControler : MonoBehaviour
 
         Quaternion direction = Quaternion.Euler(new Vector3(0f, 0f, angle));
         return direction;
+    }
+
+    public Vector2 get_aim(){
+        return aim_action.ReadValue<Vector2>();
     }
 }
