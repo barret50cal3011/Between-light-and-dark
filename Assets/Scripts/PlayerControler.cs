@@ -67,8 +67,8 @@ public class PlayerControler : MonoBehaviour
         move_action.performed += move;
         move_action.canceled += stop_movement;
 
-        light_action.performed += light;
-        dark_action.performed += dark;
+        light_action.performed += light_casted;
+        dark_action.performed += dark_casted;
 
         special1_action.performed += special1;
         special2_action.performed += special2;
@@ -84,8 +84,8 @@ public class PlayerControler : MonoBehaviour
         move_action.performed -= move;
         move_action.canceled -= stop_movement;
 
-        light_action.performed -= light;
-        dark_action.performed -= dark;
+        light_action.performed -= light_casted;
+        dark_action.performed -= dark_casted;
 
         special1_action.performed -= special1;
         special2_action.performed -= special2;
@@ -103,7 +103,7 @@ public class PlayerControler : MonoBehaviour
         rb.velocity = new Vector2(0,0);
     }
 
-    private void light(InputAction.CallbackContext context){
+    private void light_casted(InputAction.CallbackContext context){
         if(special1_is_active){
             float mana_cost = light_special1.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_light_mana()){
@@ -127,7 +127,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private void dark(InputAction.CallbackContext context){
+    private void dark_casted(InputAction.CallbackContext context){
         if(special1_is_active){
             float mana_cost = dark_special1.GetComponent<Ability>().get_mana_cost();
             if(mana_cost <= player.get_dark_mana()){
