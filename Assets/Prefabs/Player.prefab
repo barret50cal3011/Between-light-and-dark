@@ -179,6 +179,9 @@ GameObject:
   - component: {fileID: 2485159926486264033}
   - component: {fileID: 2485159926486263839}
   - component: {fileID: 3926477435766788651}
+  - component: {fileID: 5932408116726051130}
+  - component: {fileID: 1923552231367468764}
+  - component: {fileID: 8013947929971282239}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -214,7 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8952a3a788d71694fb7863d929f88061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mana_generation: 10
 --- !u!114 &2485159926486264032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +327,52 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5932408116726051130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485159926486264036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a428e15711f065543944823e0e75f0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_health: 100
+  is_player: 1
+--- !u!114 &1923552231367468764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485159926486264036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056461313f3a09c49989f8aeaa145d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  generation_rate: 1
+  max_mana: 100
+  starting_mana: 10
+--- !u!114 &8013947929971282239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485159926486264036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056461313f3a09c49989f8aeaa145d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  generation_rate: 1
+  max_mana: 100
+  starting_mana: 10
 --- !u!1 &2485159926841813966
 GameObject:
   m_ObjectHideFlags: 0

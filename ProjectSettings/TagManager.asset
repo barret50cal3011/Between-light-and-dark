@@ -10,6 +10,8 @@ TagManager:
   - Light Burst
   - Black Hole
   - Shadow Dash
+  - Light Beam
+  - Spawner
   layers:
   - Default
   - TransparentFX

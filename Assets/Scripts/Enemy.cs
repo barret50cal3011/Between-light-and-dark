@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Health))]
 
 public class Enemy : MonoBehaviour
 {
@@ -12,18 +13,19 @@ public class Enemy : MonoBehaviour
     [SerializeField]private float speed;
 
     //None serialized variables
-    private int hp;
     private int damage;
 
     //Components
     private GameObject player;
     private Rigidbody2D rb;
+    private Health health;
 
     private void Awake() {
-        hp = 100;
         damage = 5;
 
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
+        health.on_death += enemy_death;
     }
 
     // Start is called before the first frame update
@@ -51,34 +53,31 @@ public class Enemy : MonoBehaviour
         return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
     }
 
-    private void hit(int i_damage){
-        hp -= i_damage;
-        if(hp < 1){
-            MapManager.map.remove_enemy(gameObject);
-        }
+    private void enemy_death(){
+        MapManager.map_instance.on_enemy_killed.Invoke(this);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.CompareTag("Light Proyectile") || other.transform.CompareTag("Dark Proyectile")){
-            hit(other.transform.GetComponent<Ability>().get_damage());
+            health.hit(other.transform.GetComponent<Ability>().get_damage());
             Destroy(other.gameObject);
         }else if(other.transform.CompareTag("Shadow Dash")){
-            hit(other.transform.GetComponent<Ability>().get_damage());
+            health.hit(other.transform.GetComponent<Ability>().get_damage());
         }
     }
 
     private void OnTriggerStay2D(Collider2D other) {
         if(other.transform.CompareTag("Black Hole")){
             transform.position = other.transform.position;
-            hit(other.transform.GetComponent<Ability>().get_damage());
+            health.hit(other.transform.GetComponent<Ability>().get_damage());
         }else if(other.transform.CompareTag("Light Beam")){
-            hit(other.transform.GetComponent<Ability>().get_damage());
+            health.hit(other.transform.GetComponent<Ability>().get_damage());
         }
     }
 
     private void OnCollisionStay2D(Collision2D other) {
         if(other.transform.CompareTag("Light Burst")){
-            hit(other.transform.GetComponent<Ability>().get_damage());
+            health.hit(other.transform.GetComponent<Ability>().get_damage());
         }
     }
 

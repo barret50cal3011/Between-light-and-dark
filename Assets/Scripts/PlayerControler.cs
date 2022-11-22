@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Player))]
+[RequireComponent(typeof(Mana))]
 
 public class PlayerControler : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput player_input;
     private Player player;
+    private Mana light_mana;
+    private Mana dark_mana;
 
     //Actions
     private InputAction move_action;
@@ -61,6 +64,15 @@ public class PlayerControler : MonoBehaviour
 
         special1_action = player_input.actions["Special1"];
         special2_action = player_input.actions["Special2"];
+
+        Mana[] mana_list = GetComponents<Mana>();
+        for(int i = 0; i <  mana_list.Length;i++){
+            if(mana_list[i].get_type() == ManaType.Dark){
+                dark_mana = mana_list[i];
+            }else if(mana_list[i].get_type() == ManaType.Light){
+                light_mana = mana_list[i];
+            }
+        }
     }
 
     private void OnEnable() {
@@ -106,23 +118,23 @@ public class PlayerControler : MonoBehaviour
     private void light_casted(InputAction.CallbackContext context){
         if(special1_is_active){
             float mana_cost = light_special1.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_light_mana()){
+            if(light_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, light_special1);
-                player.set_light_mana(player.get_light_mana() - mana_cost);
+                light_mana.ability_used(mana_cost);
             }
             special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = light_special2.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_light_mana()){
+            if(light_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, light_special2);
-                player.set_light_mana(player.get_light_mana() - mana_cost);
+                light_mana.ability_used(mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = light_basic.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_light_mana()){
+            if(light_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, light_basic);
-                player.set_light_mana(player.get_light_mana() - mana_cost);
+                light_mana.ability_used(mana_cost);
             }
         }
     }
@@ -130,23 +142,23 @@ public class PlayerControler : MonoBehaviour
     private void dark_casted(InputAction.CallbackContext context){
         if(special1_is_active){
             float mana_cost = dark_special1.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_dark_mana()){
+            if(dark_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, dark_special1);
-                player.set_dark_mana(player.get_dark_mana() - mana_cost);
+                dark_mana.ability_used(mana_cost);
             }
             special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = dark_special2.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_dark_mana()){
+            if(dark_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, dark_special2);
-                player.set_dark_mana(player.get_dark_mana() - mana_cost);
+                dark_mana.ability_used(mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = dark_basic.GetComponent<Ability>().get_mana_cost();
-            if(mana_cost <= player.get_dark_mana()){
+            if(dark_mana.can_use_ability(mana_cost)){
                 Ability.instantiate_ability(transform, dark_basic);
-                player.set_dark_mana(player.get_dark_mana() - mana_cost);
+                dark_mana.ability_used(mana_cost);
             }
         }
     }

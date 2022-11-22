@@ -45,7 +45,7 @@ public class Ability : MonoBehaviour
     }
 
     //Methods that are used to instaniate a especific ability
-    private static void instantiate_light_projectile(Transform player, GameObject prefab){
+    private static Ability instantiate_light_projectile(Transform player, GameObject prefab){
         GameObject proj = Instantiate(prefab, player.position, player.rotation);
 
         Vector2 aim = player.GetComponent<PlayerControler>().get_aim();
@@ -54,9 +54,11 @@ public class Ability : MonoBehaviour
         Vector2 velocity = mouse_point - player_point;
 
         proj.GetComponent<Proyectile>().set_velocity(velocity);
+
+        return proj.GetComponent<Ability>();
     }
 
-    private static void instantiate_dark_projectile(Transform player, GameObject prefab){
+    private static Ability instantiate_dark_projectile(Transform player, GameObject prefab){
         GameObject proj = Instantiate(prefab, player.position, player.rotation);
 
         Vector2 mouse_on_screen = player.GetComponent<PlayerControler>().get_aim();
@@ -65,27 +67,36 @@ public class Ability : MonoBehaviour
         Vector2 velocity = mouse_point - player_point;
 
         proj.GetComponent<Proyectile>().set_velocity(velocity);
+
+        return proj.GetComponent<Ability>();
     }
 
-    private static void instantiate_black_hole(Transform player, GameObject prefab){
+    private static Ability instantiate_black_hole(Transform player, GameObject prefab){
         Vector2 mouse_on_screen = player.GetComponent<PlayerControler>().get_aim();
         Vector2 world_pos = Camera.main.ScreenToWorldPoint(mouse_on_screen);
-        Instantiate(prefab, world_pos, player.rotation);
+        GameObject bh = Instantiate(prefab, world_pos, player.rotation);
+
+        return bh.GetComponent<Ability>();
     }
 
-    private static void instantiate_shadow_dash(Transform player, GameObject prefab){
+    private static Ability instantiate_shadow_dash(Transform player, GameObject prefab){
         Vector2 mouse_on_screen = player.GetComponent<PlayerControler>().get_aim();
         Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(mouse_on_screen);
         Vector2 direction = mouse_pos - (Vector2)player.position;
 
-        Instantiate(prefab, player).GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
+        GameObject shadow_dash = Instantiate(prefab, player);
+        shadow_dash.GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
+
+        return shadow_dash.GetComponent<Ability>();
     }
 
-    private static void instantiate_light_burst(Transform player, GameObject prefab){
-        Instantiate(prefab, player.position, player.rotation);
+    private static Ability instantiate_light_burst(Transform player, GameObject prefab){
+        GameObject light_burst = Instantiate(prefab, player.position, player.rotation);
+        return light_burst.GetComponent<Ability>();
     }
 
-    private static void instantiate_light_beam(Transform player, GameObject prefab){
-        Instantiate(prefab, player);
+    private static Ability instantiate_light_beam(Transform player, GameObject prefab){
+        GameObject light_beam = Instantiate(prefab, player);
+        return light_beam.GetComponent<Ability>();
     } 
 }
