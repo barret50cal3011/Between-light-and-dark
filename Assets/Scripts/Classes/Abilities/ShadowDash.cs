@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Ability))]
-public class ShadowDash : MonoBehaviour
+public class ShadowDash : MonoBehaviour, IAbility
 {
     [SerializeField] private float speed;
     [SerializeField] private float dash_time;
@@ -55,5 +55,16 @@ public class ShadowDash : MonoBehaviour
     public void set_direction(Vector2 i_direction)
     {
         direction = i_direction;
+    }
+
+    public Ability instantiate_ability(Transform player, GameObject prefab){
+        Vector2 mouse_on_screen = player.GetComponent<PlayerControler>().get_aim();
+        Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(mouse_on_screen);
+        Vector2 direction = mouse_pos - (Vector2)player.position;
+
+        GameObject shadow_dash = Instantiate(prefab, player);
+        shadow_dash.GetComponent<ShadowDash>().set_direction(direction / direction.magnitude);
+
+        return shadow_dash.GetComponent<Ability>();
     }
 }

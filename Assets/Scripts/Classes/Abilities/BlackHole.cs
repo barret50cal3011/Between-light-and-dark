@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Ability))]
 [RequireComponent(typeof(Collider2D))]
-public class BlackHole : MonoBehaviour
+public class BlackHole : MonoBehaviour , IAbility
 {
     //Serialized variables
     [SerializeField] private float expansion_rate;
@@ -34,5 +34,13 @@ public class BlackHole : MonoBehaviour
         }else if(!is_static && time < expansion_time){
             transform.localScale += new Vector3(expansion_rate, expansion_rate, 0) * Time.deltaTime;
         }
+    }
+
+    public Ability instantiate_ability(Transform player, GameObject prefab){
+        Vector2 mouse_on_screen = player.GetComponent<PlayerControler>().get_aim();
+        Vector2 world_pos = Camera.main.ScreenToWorldPoint(mouse_on_screen);
+        GameObject bh = Instantiate(prefab, world_pos, player.rotation);
+
+        return bh.GetComponent<Ability>();
     }
 }

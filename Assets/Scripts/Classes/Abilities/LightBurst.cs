@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Ability))]
-public class LightBurst : MonoBehaviour
+public class LightBurst : MonoBehaviour, IAbility
 {
     //Serialixed variables
     [SerializeField] private float total_time;
@@ -31,5 +31,10 @@ public class LightBurst : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    public Ability instantiate_ability(Transform player, GameObject prefab){
+        GameObject light_burst = Instantiate(prefab, player.position, player.rotation);
+        return light_burst.GetComponent<Ability>();
     }
 }

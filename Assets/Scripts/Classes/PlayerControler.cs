@@ -119,21 +119,21 @@ public class PlayerControler : MonoBehaviour
         if(special1_is_active){
             float mana_cost = light_special1.GetComponent<Ability>().get_mana_cost();
             if(light_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, light_special1);
+                light_special1.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 light_mana.ability_used(mana_cost);
             }
             special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = light_special2.GetComponent<Ability>().get_mana_cost();
             if(light_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, light_special2);
+                light_special2.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 light_mana.ability_used(mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = light_basic.GetComponent<Ability>().get_mana_cost();
             if(light_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, light_basic);
+                light_basic.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 light_mana.ability_used(mana_cost);
             }
         }
@@ -143,21 +143,21 @@ public class PlayerControler : MonoBehaviour
         if(special1_is_active){
             float mana_cost = dark_special1.GetComponent<Ability>().get_mana_cost();
             if(dark_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, dark_special1);
+                dark_special1.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 dark_mana.ability_used(mana_cost);
             }
             special1_is_active = false;
         }else if(special2_is_active){
             float mana_cost = dark_special2.GetComponent<Ability>().get_mana_cost();
             if(dark_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, dark_special2);
+                dark_special2.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 dark_mana.ability_used(mana_cost);
             }
             special2_is_active = false;
         }else{
             float mana_cost = dark_basic.GetComponent<Ability>().get_mana_cost();
             if(dark_mana.can_use_ability(mana_cost)){
-                Ability.instantiate_ability(transform, dark_basic);
+                dark_basic.GetComponent<IAbility>().instantiate_ability(transform, light_basic);
                 dark_mana.ability_used(mana_cost);
             }
         }

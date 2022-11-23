@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Ability))]
-public class Proyectile : MonoBehaviour
+public class Proyectile : MonoBehaviour, IAbility
 {
     //info
     private int speed;
@@ -41,5 +41,18 @@ public class Proyectile : MonoBehaviour
     public void set_velocity(Vector2 i_vel){
         Vector2 unit_vel = (i_vel/i_vel.magnitude);
         rb.velocity = unit_vel*speed;
+    }
+
+    public Ability instantiate_ability(Transform player, GameObject prefab){
+        GameObject proj = Instantiate(prefab, player.position, player.rotation);
+
+        Vector2 aim = player.GetComponent<PlayerControler>().get_aim();
+        Vector2 mouse_point = Camera.main.ScreenToWorldPoint(aim);
+        Vector2 player_point = player.position;
+        Vector2 velocity = mouse_point - player_point;
+
+        proj.GetComponent<Proyectile>().set_velocity(velocity);
+
+        return proj.GetComponent<Ability>();
     }
 }

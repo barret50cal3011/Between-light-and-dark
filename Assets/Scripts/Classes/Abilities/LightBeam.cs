@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Ability))]
-public class LightBeam : MonoBehaviour
+public class LightBeam : MonoBehaviour, IAbility
 {
     [SerializeField]private float total_time;
 
@@ -21,5 +21,10 @@ public class LightBeam : MonoBehaviour
         if(time > total_time){
             Destroy(gameObject);
         }
+    }
+
+    public Ability instantiate_ability(Transform player, GameObject prefab){
+        GameObject light_beam = Instantiate(prefab, player);
+        return light_beam.GetComponent<Ability>();
     }
 }
